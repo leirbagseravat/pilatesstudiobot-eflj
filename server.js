@@ -7,6 +7,23 @@ const express = require("express");
 const app = express();
 
 
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
+ 
+const OpenWeatherMapHelper = require('openweathermap-node');
+
+// For temperature in Fahrenheit use units=imperial
+// For temperature in Celsius use units=metric
+const helper = new OpenWeatherMapHelper(
+	{
+		APPID: 'd8ff33461e38363901c7cc712d49dca1',
+		units: "metric"
+	}
+);
+
 
 
 
