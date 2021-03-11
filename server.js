@@ -52,7 +52,7 @@ app.get("/dreams", (request, response) => {
 
 app.post("/aulaPLN", function(request, response) {
   
-  response.json({"fulfillmentText" : "Previsao do tempo agora..."});
+  //response.json({"fulfillmentText" : "Previsao do tempo agora..."});
               
   var intentName = request.body.queryResult.intent.displayName;
   
@@ -60,8 +60,9 @@ app.post("/aulaPLN", function(request, response) {
    
     var cidade  = request.body.queryResult.parameters['cidade'];
     
-    response.json({"fulfillmentText" : "Previsao do tempo para " + cidade});
-  /*  
+    //response.json({"fulfillmentText" : "Previsao do tempo para " + cidade});
+  //}
+    
     helper.getCurrentWeatherByCityName("" + cidade, (err, currentWeather) => {
 	    if (err) {
 		    console.log(err);
@@ -82,7 +83,7 @@ app.post("/aulaPLN", function(request, response) {
           "Temperatura Máxima: " + temperaturaMaxima + "º" + "\n" +
           "Temperatura Mínima: " + temperaturaMinima
         }); */
-        /*
+        
         response.json({"fulfillmentMessages":
            [
             {
@@ -114,7 +115,7 @@ app.post("/aulaPLN", function(request, response) {
 	    }
     });
   }
-*/
+
 });
 
 
