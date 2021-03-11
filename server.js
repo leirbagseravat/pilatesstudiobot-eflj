@@ -27,8 +27,7 @@ const helper = new OpenWeatherMapHelper(
 
 
 
-
-
+// https://www.npmjs.com/package/openweathermap-node-with-units-preference
 
 
 
@@ -48,6 +47,50 @@ app.use(express.static("public"));
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
+
+
+
+
+app.post("/aulaPLN", function(request, response) {
+  
+  //response.json({"fulfillmentText" : "Previsao do tempo"});
+  
+  var intentName = request.body.queryResult.intent.displayName;
+  
+  if (intentName == "temperatura") {
+    
+    var cidade  = request.body.queryResult.parameters['cidade'];
+    
+    //response.json({"fulfillmentText" : "Previsao do tempo para " + cidade});
+    
+    helper.getCurrentWeatherByCityName("" + cidade, (err, currentWeather) => {
+	    if (err) {
+		    console.log(err);
+        
+        response.json({"fulfillmentText": "Cidade ''" +  cidade + " '' nao encontrada"});
+	    }
+	    else {
+	     	console.log(currentWeather);
+        
+         var temperaturaAtual  = currentWeather.main.temp;
+         var temperaturaMaxima = parseInt(currentWeather.main.temp_max);
+         var temperaturaMinima = parseInt(currentWeather.main.temp_min);
+       
+        /*
+        response.json({"fulfillmentText" :
+          "Cidade: " + currentWeather.name + "\n" +
+          "Temperatura Atual: " + temperaturaAtual + "º" + "\n" +
+          "Temperatura Máxima: " + temperaturaMaxima + "º" + "\n" +
+          "Temperatura Mínima: " + temperaturaMinima
+        }); */
+
+  
+  }
+  
+  
+});
+  
+  
 
 // send the default array of dreams to the webpage
 app.get("/dreams", (request, response) => {
