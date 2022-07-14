@@ -38,7 +38,69 @@ app.get("/", (request, response) => {
 
 app.post("/webhook", function(request, response) {
 
-   response.json({"fulfillmentText" : "Previsao do tempo agora..."});
+   //response.json({"fulfillmentText" : "Previsao do tempo agora..."});
+  
+  var intentName = request.body.queryResult.intent.displayName;
+  
+  if (intentName == "temperatura") {
+   
+    var cidade  = request.body.queryResult.parameters['cidade'];
+
+    //response.json({"fulfillmentText" : "Previsao do tempo para " + cidade});
+    
+    helper.getCurrentWeatherByCityName("" + cidade, (err, currentWeather) => {
+	    if (err) {
+		    console.log(err);
+        
+        response.json({"fulfillmentText": "Cidade ''" +  cidade + " '' nao encontrada"});
+	    }
+	    else {
+	     	console.log(currentWeather);
+        
+         var temperaturaAtual  = currentWeather.main.temp;
+         var temperaturaMaxima = parseInt(currentWeather.main.temp_max);
+         var temperaturaMinima = parseInt(currentWeather.main.temp_min);
+       
+        
+        /*response.json({"fulfillmentText" :
+          "Cidade: " + currentWeather.name + "\n" +
+          "Temperatura Atual: " + temperaturaAtual + "º" + "\n" +
+          "Temperatura Máxima: " + temperaturaMaxima + "º" + "\n" +
+          "Temperatura Mínima: " + temperaturaMinima
+        });*/
+        
+         response.json({"fulfillmentMessages":
+           [
+            {
+              "card": {
+                 "title": "Previsão do Tempo",
+                 "subtitle": "Cidade = " + currentWeather.name,
+                  "imageUri": "https://cdn.glitch.global/40696ccc-9795-4f13-933d-12fb6ceec97b/previsao.png?v=1657840458297"
+              }
+            },
+            {
+             "text" :{
+                "text": ["Temperatura atual = " + temperaturaAtual + "º"]
+             }
+            },
+            {
+             "text" :{
+                "text": ["Temperatura máxima = " + temperaturaMaxima + "º"]
+             }
+            },
+            {
+             "text" :{
+                "text": ["Temperatura mínima = " + temperaturaMinima + "º"]
+             }
+            }
+             
+           ]
+        });
+
+
+      }
+    });
+  }
  
 });
 
