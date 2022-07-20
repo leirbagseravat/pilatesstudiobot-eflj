@@ -12,6 +12,8 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+
+var buscaCep = require('busca-cep');
  
 const OpenWeatherMapHelper = require('openweathermap-node');
 
@@ -41,6 +43,63 @@ app.post("/webhook", function(request, response) {
    //response.json({"fulfillmentText" : "Previsao do tempo agora..."});
   
   var intentName = request.body.queryResult.intent.displayName;
+  
+  if (intentName == "processo.seletivo") {
+    
+    //response.json({"fulfillmentText": "Processo seletivo"});
+   
+    response.json({
+      "fulfillmentMessages": [
+              {
+                "card": {
+                  "title": "Processo Seletivo",
+                  "subtitle": "Bem vindo ao nosso Processo seletivo",
+                  "imageUri": "https://cdn.glitch.global/40696ccc-9795-4f13-933d-12fb6ceec97b/processo-seletivo.jpg?v=1658277254993"
+                }
+              },
+              {
+                "text" :{
+                   "text": [
+                      "Os campi da UFABC estão sediados nos municípios de Santo André e São Bernardo do Campo"
+                  ]
+                }
+              },
+              {
+                "image":{
+                  
+                    "imageUri": "https://www.ufabc.edu.br/images/imagens_a_ufabc/campus-sa.jpg",
+                    "accessibilityText": "Campus em Santo André"
+                  
+                }
+              },
+              {
+                "image":{
+                  
+                    "imageUri": "https://www.ufabc.edu.br/images/imagens_a_ufabc/campus-sbc.jpg",
+                    "accessibilityText": "Campus em São Bernardo do Campo"
+                  
+                }
+              },
+              {
+                "text" :{
+                   "text": [
+                      "Nossos campi são os melhores do Brasil"
+                  ]
+                }
+              },
+              {
+                "text" :{
+                   "text": [
+                      "Voce quer participar do processo seletivo?"
+                  ]
+                }
+              }
+            ]
+     });
+
+    
+    
+  }
   
   if (intentName == "temperatura") {
    
