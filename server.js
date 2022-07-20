@@ -101,6 +101,28 @@ app.post("/webhook", function(request, response) {
     
   }
   
+  
+    if ( intentName == "processo.seletivo - yes"  ) {
+    
+    var aluno_cep = request.body.queryResult.parameters['aluno-cep'];
+    
+    // http://viacep.com.br/
+    
+    buscaCep(aluno_cep, {sync: false, timeout: 1000})
+      .then(endereco => {
+      
+       var aluno_nome  = request.body.queryResult.parameters['aluno-nome'];
+       var aluno_cpf   = request.body.queryResult.parameters['aluno-cpf'];
+       var aluno_curso = request.body.queryResult.parameters['aluno-curso'];  
+      
+       var aluno_endereco = endereco.logradouro+"-"+endereco.bairro+","+endereco.localidade+"-"+endereco.uf+"--"+endereco.cep;
+        
+       response.json({"fulfillmentText": aluno_nome + ", CPF: " + aluno_cpf + ", curso: " + aluno_curso + ", o seu endereço completo é: " + aluno_endereco});
+       
+    })
+  
+  }
+  
   if (intentName == "temperatura") {
    
     var cidade  = request.body.queryResult.parameters['cidade'];
