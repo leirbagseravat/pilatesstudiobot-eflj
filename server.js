@@ -14,6 +14,16 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 
+const objetoTempo = require('openweathermap-node');
+
+// For temperature in Fahrenheit use units=imperial
+// For temperature in Celsius use units=metric
+const helper = new objetoTempo(
+	{
+		APPID: 'd8ff33461e38363901c7cc712d49dca1',
+		units: "metric"
+	}
+);
 
 
 
@@ -27,7 +37,11 @@ app.get("/", (request, response) => {
 });
 
 
+app.post("/aulaPLN", function(request, response) {
 
+ response.json({"fulfillmentText" : "Previsao do tempo agora..."});
+  
+});
 
 
 

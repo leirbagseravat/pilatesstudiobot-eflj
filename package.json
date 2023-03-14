@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "body-parser": "*"
+    "body-parser": "*",
+    "openweathermap-node":"*"
   },
   "engines": {
     "node": "12.x"
