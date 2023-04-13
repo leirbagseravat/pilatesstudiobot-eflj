@@ -11,18 +11,24 @@
     <title>Chatbot com Dialogflow</title>
 
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
-    <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
 
-    <!-- import the webpage's client-side javascript file -->
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>Disciplina de Processamento de Linguagem Natural</h1>
-      <h2>Prof. Alexandre Donizeti Alves</h2>
-      
-      <h3>Chatbot com Dialogflow</h3>
-    </header>
+  <div class="container">
+    <div>
+      <h2>Pilates Studio</h2>
+      <h3>Por Gabriel Tavares e João Pedro</h3>
+      <h5>Diga um "Oi" e começe seu atendimento.</h5>
+      <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+      <df-messenger
+              intent="WELCOME"
+              chat-title="PilatesScheduler"
+              agent-id="1d8d62fe-1bbb-46ab-b1db-e68d2a403826"
+              language-code="pt-br"
+      ></df-messenger>
+    </div>
+  </div>
   </body>
 </html>
